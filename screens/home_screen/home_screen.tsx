@@ -15,7 +15,7 @@ const HomeScreen = ({ navigation }: any) => {
         {/* Abrir Nova Rifa */}
         <TouchableOpacity
           style={[styles.button, { minWidth: "80%" }]}
-          onPress={() => navigation.navigate("Raffles")}
+          onPress={() => navigation.navigate("CreateRaffle")}
         >
           <Text style={styles.buttonText}>Nova Rifa</Text>
         </TouchableOpacity>
