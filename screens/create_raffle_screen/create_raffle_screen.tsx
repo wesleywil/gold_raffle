@@ -1,31 +1,63 @@
+import React, { useState } from "react";
 import {
   TouchableOpacity,
   View,
   Text,
   TextInput,
-  Button,
   StyleSheet,
 } from "react-native";
+import { createRaffle } from "../../utils/db-service";
 
-const CreateRaffleScreen = () => {
+const CreateRaffleScreen = ({ navigation }: any) => {
+  const [inputValues, seInputValues] = useState({});
+
+  const handleData = () => {
+    console.log(inputValues);
+  };
+  const updateInputValues = (key: string, value: string) => {
+    seInputValues({ ...inputValues, [key]: value });
+  };
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Criar Nova Rifa</Text>
       <View style={styles.contForm}>
         <Text style={styles.formText}>Nome Da Rifa</Text>
-        <TextInput style={styles.formInput} />
+        <TextInput
+          onChangeText={(text: string) => updateInputValues("name", text)}
+          style={styles.formInput}
+        />
         <Text style={styles.formText}>Quantidade de Numeros</Text>
-        <TextInput keyboardType="numeric" style={styles.formInput} />
+        <TextInput
+          onChangeText={(text: string) => updateInputValues("quantity", text)}
+          keyboardType="numeric"
+          style={styles.formInput}
+        />
+        <Text style={styles.formText}>Preço</Text>
+        <TextInput
+          onChangeText={(text: string) => updateInputValues("price", text)}
+          keyboardType="numeric"
+          style={styles.formInput}
+        />
+        <Text style={styles.formText}>Data do Sorteio</Text>
+        <TextInput
+          onChangeText={(text: string) => updateInputValues("date", text)}
+          style={styles.formInput}
+        />
         <View style={styles.contButton}>
           <TouchableOpacity
             style={[styles.button, { minWidth: "45%" }]}
-            onPress={() => {}}
+            onPress={() => {
+              handleData();
+            }}
           >
             <Text style={styles.buttonText}>Criar</Text>
           </TouchableOpacity>
           <TouchableOpacity
             style={[styles.button, { minWidth: "45%" }]}
-            onPress={() => {}}
+            onPress={() => {
+              navigation.navigate("Home");
+            }}
           >
             <Text style={styles.buttonText}>Cancelar</Text>
           </TouchableOpacity>
