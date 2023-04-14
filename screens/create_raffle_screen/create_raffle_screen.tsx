@@ -6,14 +6,24 @@ import {
   TextInput,
   StyleSheet,
 } from "react-native";
-import { createRaffle } from "../../utils/db-service";
+import { Raffle } from "../../utils/models/models";
+import { createRaffle } from "../../utils/services";
 
 const CreateRaffleScreen = ({ navigation }: any) => {
-  const [inputValues, seInputValues] = useState({});
+  const [inputValues, seInputValues] = useState<Raffle>({} as Raffle);
 
-  const handleData = () => {
+  const handleSubmit = async () => {
     console.log(inputValues);
+    try {
+      const raffle = await createRaffle(inputValues);
+      console.log("Raffle created", raffle);
+      // Call your other function here passing raffle as an argument
+      navigation.navigate("Home");
+    } catch (error) {
+      console.log(error);
+    }
   };
+
   const updateInputValues = (key: string, value: string) => {
     seInputValues({ ...inputValues, [key]: value });
   };
@@ -48,7 +58,7 @@ const CreateRaffleScreen = ({ navigation }: any) => {
           <TouchableOpacity
             style={[styles.button, { minWidth: "45%" }]}
             onPress={() => {
-              handleData();
+              handleSubmit();
             }}
           >
             <Text style={styles.buttonText}>Criar</Text>
