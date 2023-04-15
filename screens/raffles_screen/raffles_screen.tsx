@@ -1,31 +1,39 @@
-import { Button, View, Text, StyleSheet } from "react-native";
-import { StatusBar } from "expo-status-bar";
 import { useEffect } from "react";
-import { getAllRaffles, getAllRafflesCells } from "../../utils/services";
+import { Button, View, ScrollView, Text, StyleSheet } from "react-native";
+import { StatusBar } from "expo-status-bar";
+import { useSelector, useDispatch } from "react-redux";
+import type { RootState, AppDispatch } from "../../redux/store";
+import { fetchRaffles } from "../../redux/raffles/raffles";
+import RaffleItem from "../../components/raffle_item/raffle_item.component";
 
 const RafflesScreen = ({ navigation }: any) => {
-  useEffect(() => {
-    console.log("Loading all Raffles");
-    const fetchRaffles = async () => {
-      try {
-        // const raffles = await getAllRaffles();
-        const raffles = await getAllRafflesCells(1);
-        console.log(raffles);
-      } catch (error) {
-        console.log(error);
-      }
-    };
+  const raffles = useSelector((state: RootState) => state.raffles.raffles);
+  const status = useSelector((state: RootState) => state.raffles.status);
+  const dispatch = useDispatch<AppDispatch>();
 
-    fetchRaffles();
-  }, []);
+  useEffect(() => {
+    console.log("Fetching raffles");
+    if (status === "idle") {
+      dispatch(fetchRaffles());
+    }
+  }, [status]);
+
   return (
     <View style={styles.container}>
-      <Text>This is the Raffles Page</Text>
+      <Text style={styles.title}>Todas as Rifas</Text>
       <Button
-        title="Go Back"
+        title="Voltar"
         onPress={() => navigation.goBack()}
         color="black"
       />
+      <ScrollView style={styles.list}>
+        {raffles.length ? (
+          raffles.map((item) => <RaffleItem key={item.id} item={item} />)
+        ) : (
+          <Text>NO RAFFLES</Text>
+        )}
+      </ScrollView>
+
       <StatusBar style="auto" />
     </View>
   );
@@ -37,6 +45,17 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     alignItems: "center",
     justifyContent: "center",
+    paddingTop: 20,
+  },
+  list: {
+    marginTop: 4,
+    gap: 4,
+  },
+  title: {
+    marginBottom: 20,
+    fontSize: 30,
+    fontWeight: "bold",
+    color: "#D6A758",
   },
 });
 
