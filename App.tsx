@@ -8,6 +8,7 @@ import { store } from "./redux/store";
 import HomeScreen from "./screens/home_screen/home_screen";
 import RafflesScreen from "./screens/raffles_screen/raffles_screen";
 import CreateRaffleScreen from "./screens/create_raffle_screen/create_raffle_screen";
+import RaffleDetailsScreen from "./screens/raffle_details_screen/raffle_details_screen";
 
 // Utils
 import DatabaseInit from "./utils/database";
@@ -27,6 +28,9 @@ export default function App() {
           <Stack.Screen name="Home" component={HomeScreen} />
           <Stack.Screen name="Raffles" component={RafflesScreen} />
           <Stack.Screen name="CreateRaffle" component={CreateRaffleScreen} />
+          <Stack.Screen name="Details">
+            {(props) => <RaffleDetailsScreen {...props} />}
+          </Stack.Screen>
         </Stack.Navigator>
       </NavigationContainer>
     </Provider>
