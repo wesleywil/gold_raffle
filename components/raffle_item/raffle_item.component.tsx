@@ -6,10 +6,10 @@ const RaffleItem = ({ item }: any) => {
     <View style={styles.container}>
       <View style={styles.info}>
         <Text style={styles.text}>{item.name} - </Text>
-        <Text style={styles.text}>25/05</Text>
+        <Text style={styles.text}>{item.date}</Text>
       </View>
       <View style={styles.buttons}>
-        <RaffleItemButtons />
+        <RaffleItemButtons item={item} />
       </View>
     </View>
   );

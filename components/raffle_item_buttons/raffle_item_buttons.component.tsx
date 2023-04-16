@@ -1,9 +1,18 @@
-import { Button, View, TouchableOpacity, Text, StyleSheet } from "react-native";
+import { TouchableOpacity, Text, StyleSheet } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 
-const RaffleItemButtons = () => {
+const RaffleItemButtons = ({ item }: any) => {
+  const navigation: any = useNavigation();
   return (
     <>
-      <TouchableOpacity style={styles.button}>
+      <TouchableOpacity
+        style={styles.button}
+        onPress={() => {
+          navigation.navigate("Details", {
+            item: item,
+          });
+        }}
+      >
         <Text style={[styles.buttonText, { color: "blue" }]}>Ver</Text>
       </TouchableOpacity>
       <TouchableOpacity style={styles.button}>
