@@ -12,12 +12,14 @@ export interface RaffleCell {
 
 export interface RaffleCellState {
   raffle_cells: Array<RaffleCell>;
+  raffle_cell: RaffleCell;
   status: string;
   error: any;
 }
 
 const initialState: RaffleCellState = {
   raffle_cells: [],
+  raffle_cell: {} as RaffleCell,
   status: "idle",
   error: null,
 };
@@ -33,7 +35,13 @@ export const fetchRaffleCells = createAsyncThunk(
 export const raffleCellsSlice = createSlice({
   name: "raffles",
   initialState,
-  reducers: {},
+  reducers: {
+    select_raffleCell_byId: (state, { payload }) => {
+      state.raffle_cell = state.raffle_cells.find(
+        (item) => item.id === payload
+      )!;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchRaffleCells.pending, (state) => {
@@ -49,6 +57,6 @@ export const raffleCellsSlice = createSlice({
   },
 });
 
-export const {} = raffleCellsSlice.actions;
+export const { select_raffleCell_byId } = raffleCellsSlice.actions;
 
 export default raffleCellsSlice.reducer;
