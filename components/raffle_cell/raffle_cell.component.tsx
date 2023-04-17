@@ -1,13 +1,23 @@
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "../../redux/store";
+import { switch_number_select } from "../../redux/utils/utils";
 import { TouchableOpacity, Text, View, StyleSheet } from "react-native";
+import { select_raffleCell_byId } from "../../redux/raffle_cells/raffle_cells";
 
 const RaffleCell = ({ item }: any) => {
+  const dispatch = useDispatch<AppDispatch>();
+
+  const selectNumber = () => {
+    dispatch(switch_number_select());
+    dispatch(select_raffleCell_byId(item.id));
+  };
   return (
     <View style={styles.cell}>
       <Text style={{ fontSize: 20 }}>{item.id}</Text>
       <Text style={{ textAlign: "center" }}>
         {item.client_name ? item.client_name : "Não foi escolhido"}
       </Text>
-      <TouchableOpacity style={styles.button}>
+      <TouchableOpacity style={styles.button} onPress={selectNumber}>
         <Text style={styles.buttonText}>Escolher</Text>
       </TouchableOpacity>
     </View>

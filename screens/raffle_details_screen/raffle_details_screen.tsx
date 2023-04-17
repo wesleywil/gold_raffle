@@ -1,9 +1,18 @@
 import { useEffect } from "react";
-import { Button, Text, View, FlatList, StyleSheet } from "react-native";
+import {
+  Button,
+  Text,
+  View,
+  FlatList,
+  StyleSheet,
+  TextInput,
+} from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import type { RootState, AppDispatch } from "../../redux/store";
 import { fetchRaffleCells } from "../../redux/raffle_cells/raffle_cells";
+// Components
 import RaffleCell from "../../components/raffle_cell/raffle_cell.component";
+import SelectCell from "../../components/select_cell/select_cell.component";
 
 const RaffleDetailsScreen = ({ route, navigation }: any) => {
   const { item } = route.params;
@@ -11,7 +20,9 @@ const RaffleDetailsScreen = ({ route, navigation }: any) => {
   const cells = useSelector(
     (state: RootState) => state.raffle_cells.raffle_cells
   );
-  const status = useSelector((state: RootState) => state.raffle_cells.status);
+  const hidden = useSelector(
+    (state: RootState) => state.utils.number_select_hidden
+  );
   const dispatch = useDispatch<AppDispatch>();
 
   useEffect(() => {
@@ -21,11 +32,13 @@ const RaffleDetailsScreen = ({ route, navigation }: any) => {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>{item.name}</Text>
+      {hidden ? "" : <SelectCell />}
+
       <FlatList
         style={styles.mapContainer}
         data={cells}
         numColumns={3}
-        renderItem={RaffleCell}
+        renderItem={({ item }: any) => <RaffleCell item={item} />}
       />
     </View>
   );
