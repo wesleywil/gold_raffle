@@ -1,3 +1,4 @@
+import { useState } from "react";
 import {
   Button,
   Text,
@@ -6,26 +7,45 @@ import {
   TextInput,
   StyleSheet,
 } from "react-native";
-import { useSelector } from "react-redux";
-import type { RootState } from "../../redux/store";
-
+import { useSelector, useDispatch } from "react-redux";
+import type { RootState, AppDispatch } from "../../redux/store";
+import { selectRaffleCell } from "../../redux/raffle_cells/raffle_cells";
+import { switch_number_select } from "../../redux/utils/utils";
 // Components
 import PanelConfig from "../panel_config/panel_config.component";
 
 const SelectCell = () => {
+  const [inputValue, setInputValue] = useState("");
   const cell = useSelector(
     (state: RootState) => state.raffle_cells.raffle_cell
   );
+  const dispatch = useDispatch<AppDispatch>();
+
+  const handleSelect = async () => {
+    try {
+      const data = {
+        client_name: inputValue,
+        id: cell.id!,
+      };
+
+      const res = await dispatch(selectRaffleCell(data));
+      dispatch(switch_number_select());
+      console.log("aaaah", res);
+    } catch (error) {
+      console.log("Error in trying to update cell", error);
+    }
+  };
+
+  const handleInputChange = (value: string) => {
+    setInputValue(value);
+  };
   return (
     <View style={styles.selectContainer}>
       <PanelConfig />
       <Text style={styles.choosenText}>Numero escolhido - {cell.id}</Text>
       <Text style={styles.text}>Nome do Cliente</Text>
-      <TextInput
-        style={styles.textInput}
-        defaultValue={cell.client_name ? cell.client_name : "Não foi escolhido"}
-      />
-      <Button title="Selecionar Numero" />
+      <TextInput style={styles.textInput} onChangeText={handleInputChange} />
+      <Button title="Selecionar Numero" onPress={handleSelect} />
     </View>
   );
 };
@@ -62,7 +82,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: "black",
     borderRadius: 5,
-    color: "white",
+    color: "black",
     paddingVertical: 5,
     marginBottom: 5,
     marginHorizontal: 5,
