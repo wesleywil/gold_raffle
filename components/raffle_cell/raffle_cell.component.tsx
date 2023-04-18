@@ -17,9 +17,15 @@ const RaffleCell = ({ item }: any) => {
       <Text style={{ textAlign: "center" }}>
         {item.client_name ? item.client_name : "Não foi escolhido"}
       </Text>
-      <TouchableOpacity style={styles.button} onPress={selectNumber}>
-        <Text style={styles.buttonText}>Escolher</Text>
-      </TouchableOpacity>
+      {item.client_name ? (
+        <TouchableOpacity style={styles.button} disabled>
+          <Text style={styles.buttonText}>Escolhido</Text>
+        </TouchableOpacity>
+      ) : (
+        <TouchableOpacity style={styles.button} onPress={selectNumber}>
+          <Text style={styles.buttonText}>Escolher</Text>
+        </TouchableOpacity>
+      )}
     </View>
   );
 };
