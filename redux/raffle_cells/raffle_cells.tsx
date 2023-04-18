@@ -1,5 +1,8 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { getAllRafflesCells } from "../../utils/services";
+import {
+  getAllRafflesCells,
+  updateSelectedRaffleCell,
+} from "../../utils/services";
 
 export interface RaffleCell {
   id?: number;
@@ -29,6 +32,15 @@ export const fetchRaffleCells = createAsyncThunk(
   async (id: number) => {
     const res: any = await getAllRafflesCells(id);
     return res._array as RaffleCell[];
+  }
+);
+
+export const selectRaffleCell = createAsyncThunk(
+  "raffles/selectRaffleCell",
+  async ({ client_name, id }: { client_name: string; id: number }) => {
+    const res: any = await updateSelectedRaffleCell(client_name, id);
+    console.log("RESULT OF THE UPDATE==> ", res);
+    return res;
   }
 );
 
