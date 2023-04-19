@@ -18,6 +18,7 @@ export interface RaffleCellState {
   raffle_cell: RaffleCell;
   status: string;
   error: any;
+  winner: string;
 }
 
 const initialState: RaffleCellState = {
@@ -25,6 +26,7 @@ const initialState: RaffleCellState = {
   raffle_cell: {} as RaffleCell,
   status: "idle",
   error: null,
+  winner: "idle" || "winner" || "has numbers",
 };
 
 export const fetchRaffleCells = createAsyncThunk(
@@ -53,6 +55,27 @@ export const raffleCellsSlice = createSlice({
         (item) => item.id === payload
       )!;
     },
+    randomNumber: (state) => {
+      const allSelected = state.raffle_cells.every(
+        (cell) => cell.selected === 1
+      );
+      if (allSelected) {
+        const randomIndex = Math.floor(
+          Math.random() * state.raffle_cells.length
+        );
+        const randomCell = state.raffle_cells[randomIndex];
+        return {
+          ...state,
+          raffle_cell: randomCell,
+          winner: "winner",
+        };
+      } else {
+        return {
+          ...state,
+          winner: "has numbers",
+        };
+      }
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -69,6 +92,7 @@ export const raffleCellsSlice = createSlice({
   },
 });
 
-export const { select_raffleCell_byId } = raffleCellsSlice.actions;
+export const { select_raffleCell_byId, randomNumber } =
+  raffleCellsSlice.actions;
 
 export default raffleCellsSlice.reducer;
