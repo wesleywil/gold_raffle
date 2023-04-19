@@ -69,6 +69,19 @@ const screenStyles = StyleSheet.create({
         flexWrap: "wrap",
         gap: 3,
       },
+      raffleDetailsButton:{
+        marginVertical:10,
+        borderWidth:1,
+        borderRadius:10,
+        backgroundColor:"#c69957",
+        minWidth:"65%"
+      },
+      raffleDetailsButtonText:{
+        fontSize:25,
+        fontWeight:"bold",
+        color:"white",
+        textAlign:"center"
+      }
 })
 
 export default screenStyles;
