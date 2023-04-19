@@ -13,6 +13,7 @@ import { fetchRaffleCells } from "../../redux/raffle_cells/raffle_cells";
 // Components
 import RaffleCell from "../../components/raffle_cell/raffle_cell.component";
 import SelectCell from "../../components/select_cell/select_cell.component";
+import screenStyles from "../../styles/screenStyles";
 
 const RaffleDetailsScreen = ({ route, navigation }: any) => {
   const { item } = route.params;
@@ -30,12 +31,12 @@ const RaffleDetailsScreen = ({ route, navigation }: any) => {
     dispatch(fetchRaffleCells(item.id));
   }, [item, navigation]);
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>{item.name}</Text>
+    <View style={screenStyles.container}>
+      <Text style={[screenStyles.title, { marginTop: 10 }]}>{item.name}</Text>
       {hidden ? "" : <SelectCell />}
 
       <FlatList
-        style={styles.mapContainer}
+        style={screenStyles.mapContainer}
         data={cells}
         numColumns={3}
         renderItem={({ item }: any) => <RaffleCell item={item} />}
@@ -43,26 +44,5 @@ const RaffleDetailsScreen = ({ route, navigation }: any) => {
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-  },
-  title: {
-    marginTop: 15,
-    fontSize: 30,
-    fontWeight: "bold",
-    color: "#D6A758",
-  },
-  mapContainer: {
-    borderWidth: 1,
-    borderColor: "red",
-    padding: 5,
-    flexWrap: "wrap",
-    gap: 3,
-  },
-});
 
 export default RaffleDetailsScreen;

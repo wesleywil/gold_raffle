@@ -1,10 +1,18 @@
 import { useEffect } from "react";
-import { Button, View, ScrollView, Text, StyleSheet } from "react-native";
+import {
+  Button,
+  View,
+  ScrollView,
+  TouchableOpacity,
+  Text,
+  StyleSheet,
+} from "react-native";
 import { StatusBar } from "expo-status-bar";
 import { useSelector, useDispatch } from "react-redux";
 import type { RootState, AppDispatch } from "../../redux/store";
 import { fetchRaffles } from "../../redux/raffles/raffles";
 import RaffleItem from "../../components/raffle_item/raffle_item.component";
+import screenStyles from "../../styles/screenStyles";
 
 const RafflesScreen = ({ navigation }: any) => {
   const raffles = useSelector((state: RootState) => state.raffles.raffles);
@@ -19,14 +27,18 @@ const RafflesScreen = ({ navigation }: any) => {
   }, [status]);
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Todas as Rifas</Text>
-      <Button
-        title="Voltar"
+    <View style={screenStyles.container}>
+      <Text style={[screenStyles.title, { marginTop: 20 }]}>
+        Todas as Rifas
+      </Text>
+      <TouchableOpacity
+        style={[screenStyles.button, { minWidth: "45%" }]}
         onPress={() => navigation.goBack()}
-        color="black"
-      />
-      <ScrollView style={styles.list}>
+      >
+        <Text style={screenStyles.buttonText}>Voltar</Text>
+      </TouchableOpacity>
+
+      <ScrollView style={screenStyles.list}>
         {raffles.length ? (
           raffles.map((item) => <RaffleItem key={item.id} item={item} />)
         ) : (
@@ -38,25 +50,5 @@ const RafflesScreen = ({ navigation }: any) => {
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-    paddingTop: 20,
-  },
-  list: {
-    marginTop: 4,
-    gap: 4,
-  },
-  title: {
-    marginBottom: 20,
-    fontSize: 30,
-    fontWeight: "bold",
-    color: "#D6A758",
-  },
-});
 
 export default RafflesScreen;
