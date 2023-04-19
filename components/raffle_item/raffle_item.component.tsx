@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text } from "react-native";
 import RaffleItemButtons from "../raffle_item_buttons/raffle_item_buttons.component";
 import componentStyles from "../../styles/componentStyles";
 
