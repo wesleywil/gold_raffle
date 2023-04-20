@@ -76,6 +76,9 @@ export const raffleCellsSlice = createSlice({
         };
       }
     },
+    reset_winner_message: (state) => {
+      state.winner = "idle";
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -92,7 +95,7 @@ export const raffleCellsSlice = createSlice({
   },
 });
 
-export const { select_raffleCell_byId, randomNumber } =
+export const { select_raffleCell_byId, randomNumber, reset_winner_message } =
   raffleCellsSlice.actions;
 
 export default raffleCellsSlice.reducer;

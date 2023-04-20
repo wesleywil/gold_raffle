@@ -9,7 +9,12 @@ import {
 // Components
 import RaffleCell from "../../components/raffle_cell/raffle_cell.component";
 import SelectCell from "../../components/select_cell/select_cell.component";
+import RaffleMessage from "../../components/raffle_message/raffle_message.component";
+
+// Styles
 import screenStyles from "../../styles/screenStyles";
+import RaffleDetailsMenu from "../../components/raffle_details_menu/raffle_details_menu.component";
+import UpdateRaffle from "../../components/update_raffle/update_raffle.component";
 
 const RaffleDetailsScreen = ({ route, navigation }: any) => {
   const { item } = route.params;
@@ -17,36 +22,29 @@ const RaffleDetailsScreen = ({ route, navigation }: any) => {
   const cells = useSelector(
     (state: RootState) => state.raffle_cells.raffle_cells
   );
-  const winner_cell = useSelector(
-    (state: RootState) => state.raffle_cells.raffle_cell
-  );
-  const winner = useSelector((state: RootState) => state.raffle_cells.winner);
-  const hidden = useSelector(
+  const hidden_cell = useSelector(
     (state: RootState) => state.utils.number_select_hidden
+  );
+  const hidden_update = useSelector(
+    (state: RootState) => state.utils.update_raffle_hidden
   );
   const dispatch = useDispatch<AppDispatch>();
 
   useEffect(() => {
-    console.log("Raffle Details", item.id);
+    console.log("Raffle Details", item);
     dispatch(fetchRaffleCells(item.id));
   }, [item, navigation]);
   return (
     <View style={screenStyles.container}>
       <Text style={[screenStyles.title, { marginTop: 10 }]}>{item.name}</Text>
-      {hidden ? "" : <SelectCell />}
-      <TouchableOpacity
-        style={screenStyles.raffleDetailsButton}
-        onPress={() => dispatch(randomNumber())}
-      >
-        <Text style={screenStyles.raffleDetailsButtonText}>Sortear</Text>
-      </TouchableOpacity>
-      <Text style={{ color: "white" }}>
-        {winner === "idle"
-          ? ""
-          : winner === "winner"
-          ? "O vencedor é " + winner_cell.client_name
-          : "A rifa não foi totalmente preenchida"}
+      <Text style={[screenStyles.raffleDetailsPrice, { marginTop: 2 }]}>
+        Preço p/Numero - R$ {item.price}
       </Text>
+      {hidden_cell ? "" : <SelectCell />}
+      {hidden_update ? "" : <UpdateRaffle item={item} />}
+
+      <RaffleDetailsMenu />
+      <RaffleMessage />
       <FlatList
         style={screenStyles.mapContainer}
         data={cells}

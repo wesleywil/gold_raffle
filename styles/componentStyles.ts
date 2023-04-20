@@ -110,6 +110,65 @@ const componentStyles = StyleSheet.create({
         borderBottomRightRadius:5,
         backgroundColor: "#e1b058"
       },
+      // Update Raffle
+        updateRaffleContainer:{
+          position: "absolute",
+        top: "50%",
+        left: "50%",
+        transform: [{ translateX: -150 }, { translateY: -100 }],
+        zIndex: 2,
+        width: 300,
+        backgroundColor: "#000001",
+        borderWidth: 1,
+        borderColor: "#e1b058",
+        borderRadius: 10,
+        overflow: "hidden",
+        },
+        updateRaffleTitle:{
+          textAlign:"center",
+          fontSize:20,
+          fontWeight:"bold",
+          color:"#e1b058",
+        },
+        updateRaffleSubContainer:{
+          marginTop:10,
+          padding:3,
+        },
+        updateRaffleText:{
+          color:"white",
+          fontSize:16,
+        },
+        updateRaffleInput:{
+          fontSize: 30,
+          padding: 2,
+          backgroundColor: "#594625",
+          color: "white",
+          borderRadius: 5,
+        },
+        updateRaffleButtonsContainer:{
+          flexDirection:"row",
+          justifyContent:"center",
+          gap:5,
+          
+        },
+      // Raffle Details Menu
+      raffleDetailsMenuContainer:{
+        flexDirection:"row",
+        gap:10,
+      },
+      raffleDetailsMenuButton:{
+        marginVertical:10,
+        borderWidth:1,
+        borderRadius:10,
+        backgroundColor:"#c69957",
+        minWidth:"40%"
+      },
+      raffleDetailsMenuButtonText:{
+        fontSize:25,
+        fontWeight:"bold",
+        color:"white",
+        textAlign:"center"
+      },
     //   Panel Config
     config: {
         flexDirection: "row",
