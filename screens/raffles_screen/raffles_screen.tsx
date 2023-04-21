@@ -21,7 +21,7 @@ const RafflesScreen = ({ navigation }: any) => {
 
   useEffect(() => {
     console.log("Fetching raffles");
-    if (status === "idle") {
+    if (status === "idle" || status === "updated successfully") {
       dispatch(fetchRaffles());
     }
   }, [status]);

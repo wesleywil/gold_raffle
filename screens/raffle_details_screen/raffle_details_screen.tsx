@@ -41,7 +41,7 @@ const RaffleDetailsScreen = ({ route, navigation }: any) => {
         Preço p/Numero - R$ {item.price}
       </Text>
       {hidden_cell ? "" : <SelectCell />}
-      {hidden_update ? "" : <UpdateRaffle item={item} />}
+      {hidden_update ? "" : <UpdateRaffle {...item} />}
 
       <RaffleDetailsMenu />
       <RaffleMessage />
