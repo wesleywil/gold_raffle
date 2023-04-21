@@ -1,5 +1,8 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { getAllRaffles } from "../../utils/services";
+import {
+  getAllRaffles,
+  updateRaffle as raffleUpdate,
+} from "../../utils/services";
 
 export interface Raffle {
   id?: number;
@@ -31,6 +34,15 @@ export const fetchRaffles = createAsyncThunk(
   }
 );
 
+export const updateRaffle = createAsyncThunk(
+  "raffles/updateRaffle",
+  async (data: Raffle) => {
+    const res = await raffleUpdate(data);
+    console.log("UPDATE RAFFLE ", res);
+    return res;
+  }
+);
+
 export const rafflesSlice = createSlice({
   name: "raffles",
   initialState,
@@ -46,6 +58,15 @@ export const rafflesSlice = createSlice({
       })
       .addCase(fetchRaffles.rejected, (state) => {
         state.status = "error";
+      })
+      .addCase(updateRaffle.pending, (state) => {
+        state.status = "updating";
+      })
+      .addCase(updateRaffle.fulfilled, (state) => {
+        state.status = "updated successfully";
+      })
+      .addCase(updateRaffle.rejected, (state) => {
+        state.status = "update error";
       });
   },
 });

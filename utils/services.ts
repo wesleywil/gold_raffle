@@ -66,6 +66,19 @@ export const getAllRafflesCells = (raffle_id:number): Promise<unknown> => {
 }))
 };
 
+export const updateRaffle = (data:Raffle):Promise<unknown>=>{
+  const { name, date, price, id} = data;
+  return new Promise((resolve, reject)=> db.transaction(tx=>{
+    tx.executeSql(`UPDATE raffles SET name = ?, date = ?, price = ? WHERE id = ?`,[name, date, price, id!],(_, {rowsAffected })=>{
+      resolve(rowsAffected )
+    }),(sqlError:any)=>{
+      console.log(sqlError);
+    }
+  }, (txError)=>{
+    console.log(txError)
+  }))
+}
+
 export const updateSelectedRaffleCell = (client_name:string, id:number):Promise<unknown>=>{
   return new Promise((resolve, reject)=> db.transaction(tx=>{
     tx.executeSql(`UPDATE raffles_cells SET selected = 1, client_name = ? WHERE id = ?`,[client_name,id],(_, {rowsAffected })=>{
