@@ -6,7 +6,6 @@ const HomeScreen = ({ navigation }: any) => {
   return (
     <View style={screenStyles.container}>
       <Text style={screenStyles.title}>Golden Rifa</Text>
-      <Text style={screenStyles.subText}>Total de Rifas Abertas: 3</Text>
       <View
         style={{
           flexDirection: "column",
@@ -25,12 +24,6 @@ const HomeScreen = ({ navigation }: any) => {
           onPress={() => navigation.navigate("Raffles")}
         >
           <Text style={screenStyles.buttonText}>Ver Rifas</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={[screenStyles.button, { minWidth: "80%" }]}
-          onPress={() => navigation.navigate("Raffles")}
-        >
-          <Text style={screenStyles.buttonText}>Ultima Rifa Modificada</Text>
         </TouchableOpacity>
       </View>
       <StatusBar style="auto" />

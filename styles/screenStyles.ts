@@ -40,6 +40,7 @@ const screenStyles = StyleSheet.create({
       formText: {
         fontSize: 20,
         fontWeight: "bold",
+        color:"white",
       },
       formInput: {
         fontSize: 30,
