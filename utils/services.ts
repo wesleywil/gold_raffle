@@ -91,6 +91,31 @@ export const updateSelectedRaffleCell = (client_name:string, id:number):Promise<
   }))
 }
 
+export const deleteRaffle = (id:number):Promise<unknown>=>{
+  return new Promise((resolve, reject)=> db.transaction(tx=>{
+    tx.executeSql(`DELETE FROM raffles WHERE id=?`,[id],(_, {rowsAffected })=>{
+      resolve(rowsAffected )
+    }),(sqlError:any)=>{
+      console.log(sqlError);
+    }
+  }, (txError)=>{
+    console.log(txError)
+  }))
+}
+
+export const deleteRaffle_cells = (id:number):Promise<unknown>=>{
+  return new Promise((resolve, reject)=> db.transaction(tx=>{
+    tx.executeSql(`DELETE FROM raffles_cells WHERE raffle_id=?`,[id],(_, {rowsAffected })=>{
+      resolve(rowsAffected )
+    }),(sqlError:any)=>{
+      console.log(sqlError);
+    }
+  }, (txError)=>{
+    console.log(txError)
+  }))
+}
+
+
 
 
 

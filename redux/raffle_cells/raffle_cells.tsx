@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import {
+  deleteRaffle_cells as raffle_cellsDelete,
   getAllRafflesCells,
   updateSelectedRaffleCell,
 } from "../../utils/services";
@@ -38,10 +39,19 @@ export const fetchRaffleCells = createAsyncThunk(
 );
 
 export const selectRaffleCell = createAsyncThunk(
-  "raffles/selectRaffleCell",
+  "raffleCells/selectRaffleCell",
   async ({ client_name, id }: { client_name: string; id: number }) => {
     const res: any = await updateSelectedRaffleCell(client_name, id);
     console.log("RESULT OF THE UPDATE==> ", res);
+    return res;
+  }
+);
+
+export const deleteRaffle_cells = createAsyncThunk(
+  "raffleCells/deleteRaffle_cells",
+  async (id: number) => {
+    const res = await raffle_cellsDelete(id);
+    console.log("Deleting raffle_cells => ", res);
     return res;
   }
 );

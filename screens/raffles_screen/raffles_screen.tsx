@@ -13,18 +13,26 @@ import type { RootState, AppDispatch } from "../../redux/store";
 import { fetchRaffles } from "../../redux/raffles/raffles";
 import RaffleItem from "../../components/raffle_item/raffle_item.component";
 import screenStyles from "../../styles/screenStyles";
+import PanelDelete from "../../components/panel_delete/panel_delete.component";
 
 const RafflesScreen = ({ navigation }: any) => {
   const raffles = useSelector((state: RootState) => state.raffles.raffles);
   const status = useSelector((state: RootState) => state.raffles.status);
+  const hidden = useSelector(
+    (state: RootState) => state.utils.delete_raffle_hidden
+  );
   const dispatch = useDispatch<AppDispatch>();
 
   useEffect(() => {
     console.log("Fetching raffles");
-    if (status === "idle" || status === "updated successfully") {
+    if (
+      status === "idle" ||
+      status === "updated successfully" ||
+      status === "deleted successfully"
+    ) {
       dispatch(fetchRaffles());
     }
-  }, [status]);
+  }, [status, raffles]);
 
   return (
     <View style={screenStyles.container}>
@@ -37,6 +45,7 @@ const RafflesScreen = ({ navigation }: any) => {
       >
         <Text style={screenStyles.buttonText}>Voltar</Text>
       </TouchableOpacity>
+      {hidden ? "" : <PanelDelete />}
 
       <ScrollView style={screenStyles.list}>
         {raffles.length ? (

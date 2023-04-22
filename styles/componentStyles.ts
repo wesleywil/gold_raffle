@@ -31,6 +31,33 @@ const componentStyles = StyleSheet.create({
         fontWeight:"bold",
         fontSize: 20,
       },
+      // Panel Delete
+      panelDeleteContainer:{
+        width:"80%",
+        flexDirection:"column",
+        padding:5,
+        borderWidth:1,
+        borderColor:"white",
+        borderRadius:5,
+      },
+      panelDeleteTitle:{
+        fontSize:18,
+        fontWeight:"bold",
+        textAlign:"center",
+        color:"white",
+      },
+      panelDeleteButtonContainer:{
+        flexDirection:"row",
+        justifyContent:"center",
+        gap:20,
+      },
+      panelDeleteButton:{
+
+      },
+      panelDeleteButtonText:{
+        fontSize:25,
+        fontWeight:"bold",
+      },
     //   Raffle Item Buttons
     button: {
         gap: 4,

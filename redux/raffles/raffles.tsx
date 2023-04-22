@@ -2,6 +2,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import {
   getAllRaffles,
   updateRaffle as raffleUpdate,
+  deleteRaffle as raffleDelete,
 } from "../../utils/services";
 
 export interface Raffle {
@@ -15,12 +16,14 @@ export interface Raffle {
 
 export interface RafflesState {
   raffles: Array<Raffle>;
+  raffle: Raffle;
   status: string;
   error: any;
 }
 
 const initialState: RafflesState = {
   raffles: [],
+  raffle: {} as Raffle,
   status: "idle",
   error: null,
 };
@@ -43,10 +46,23 @@ export const updateRaffle = createAsyncThunk(
   }
 );
 
+export const deleteRaffle = createAsyncThunk(
+  "raffles/deleteRaffle",
+  async (id: number) => {
+    const res = await raffleDelete(id);
+    console.log("Deleting raffle => ", res);
+    return res;
+  }
+);
+
 export const rafflesSlice = createSlice({
   name: "raffles",
   initialState,
-  reducers: {},
+  reducers: {
+    select_raffle_byId: (state, { payload }) => {
+      state.raffle = state.raffles.find((item) => item.id === payload)!;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchRaffles.pending, (state) => {
@@ -67,10 +83,19 @@ export const rafflesSlice = createSlice({
       })
       .addCase(updateRaffle.rejected, (state) => {
         state.status = "update error";
+      })
+      .addCase(deleteRaffle.pending, (state) => {
+        state.status = "deleting";
+      })
+      .addCase(deleteRaffle.fulfilled, (state) => {
+        state.status = "deleted successfully";
+      })
+      .addCase(deleteRaffle.rejected, (state) => {
+        state.status = "delete error";
       });
   },
 });
 
-export const {} = rafflesSlice.actions;
+export const { select_raffle_byId } = rafflesSlice.actions;
 
 export default rafflesSlice.reducer;
