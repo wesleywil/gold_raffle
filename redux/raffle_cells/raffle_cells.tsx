@@ -101,6 +101,24 @@ export const raffleCellsSlice = createSlice({
       })
       .addCase(fetchRaffleCells.rejected, (state) => {
         state.status = "error";
+      })
+      .addCase(selectRaffleCell.pending, (state) => {
+        state.status = "selecting cell";
+      })
+      .addCase(selectRaffleCell.fulfilled, (state) => {
+        state.status = "cell was selected";
+      })
+      .addCase(selectRaffleCell.rejected, (state) => {
+        state.status = "selection failed";
+      })
+      .addCase(deleteRaffle_cells.pending, (state) => {
+        state.status = "deleting";
+      })
+      .addCase(deleteRaffle_cells.fulfilled, (state) => {
+        state.status = "cell was deleted";
+      })
+      .addCase(deleteRaffle_cells.rejected, (state) => {
+        state.status = "deleting cell failed";
       });
   },
 });
