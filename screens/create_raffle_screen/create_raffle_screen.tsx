@@ -1,27 +1,23 @@
 import React, { useState } from "react";
-import {
-  TouchableOpacity,
-  View,
-  Text,
-  TextInput,
-  StyleSheet,
-} from "react-native";
-
+import { TouchableOpacity, View, Text, TextInput } from "react-native";
+import { useDispatch } from "react-redux";
+import type { AppDispatch } from "../../redux/store";
 import { Raffle } from "../../utils/models/models";
-import { createRaffle } from "../../utils/services";
+import { createRaffle } from "../../redux/raffles/raffles";
 
 import screenStyles from "../../styles/screenStyles";
 
 const CreateRaffleScreen = ({ navigation }: any) => {
   const [inputValues, seInputValues] = useState<Raffle>({} as Raffle);
+  const dispatch = useDispatch<AppDispatch>();
 
   const handleSubmit = async () => {
     console.log(inputValues);
     try {
-      const raffle = await createRaffle(inputValues);
+      const raffle = await dispatch(createRaffle(inputValues));
       console.log("Raffle created", raffle);
-      // Call your other function here passing raffle as an argument
-      navigation.navigate("Home");
+
+      navigation.navigate("Raffles");
     } catch (error) {
       console.log(error);
     }

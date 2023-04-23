@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import {
   getAllRaffles,
+  createRaffle as raffleCreate,
   updateRaffle as raffleUpdate,
   deleteRaffle as raffleDelete,
 } from "../../utils/services";
@@ -34,6 +35,15 @@ export const fetchRaffles = createAsyncThunk(
     const res: any = await getAllRaffles();
     console.log("DATA => ");
     return res._array as Raffle[];
+  }
+);
+
+export const createRaffle = createAsyncThunk(
+  "raffles/createRaffle",
+  async (data: Raffle) => {
+    const res = await raffleCreate(data);
+    console.log("Create raffle=> ", res);
+    return res;
   }
 );
 
@@ -74,6 +84,15 @@ export const rafflesSlice = createSlice({
       })
       .addCase(fetchRaffles.rejected, (state) => {
         state.status = "error";
+      })
+      .addCase(createRaffle.pending, (state) => {
+        state.status = "creating";
+      })
+      .addCase(createRaffle.fulfilled, (state, { payload }) => {
+        state.status = "created successfully";
+      })
+      .addCase(createRaffle.rejected, (state) => {
+        state.status = "create error";
       })
       .addCase(updateRaffle.pending, (state) => {
         state.status = "updating";

@@ -27,6 +27,7 @@ const RafflesScreen = ({ navigation }: any) => {
     console.log("Fetching raffles");
     if (
       status === "idle" ||
+      status === "created successfully" ||
       status === "updated successfully" ||
       status === "deleted successfully"
     ) {
