@@ -1,15 +1,15 @@
 {
   "expo": {
-    "name": "gold_raffle",
+    "name": "Golden Raffle",
     "slug": "gold_raffle",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/icon_golden_raffle.png",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./assets/splash_golden_raffle.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#010101"
     },
     "assetBundlePatterns": [
       "**/*"
@@ -19,8 +19,8 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
+        "foregroundImage": "./assets/adaptive-icon_golden_raffle.png",
+        "backgroundColor": "#010101"
       },
       "package": "com.wesleywilson.gold_raffle"
     },
